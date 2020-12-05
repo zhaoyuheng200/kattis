@@ -39,9 +39,12 @@ var dict = {};
 var currentBest = -1;
 
 function best(num, position) {
-  if (num < m) {
+  if (num < m-1) {
     var nextNum = num+1;
     var nextPosition = -1;
+    if (position === n-1) {
+      return arrMatrix[nextNum][0] + 1 + best(nextNum, arrMatrix[nextNum][0])
+    }
     for (var i = 0; i < arrMatrix[nextNum].length; i++) {
       if (arrMatrix[nextNum][i] > position) {
         nextPosition = arrMatrix[nextNum][i];
@@ -54,8 +57,10 @@ function best(num, position) {
     if (nextPosition > position) {
       return nextPosition - position + best(nextNum, nextPosition);
     } else {
-      return n - position + nextPosition + best(nextNum, nextPosition);
+      return (n - 1)  - position + nextPosition + 1 + best(nextNum, nextPosition);
     }
+  } else {
+    return 0;
   }
 }
 
@@ -73,10 +78,10 @@ function main(input) {
    */
   for (var i = 0; i < arrMatrix[0].length; i++) {
     var currentStart = arrMatrix[0][i];
-    var tmp = best(0, arrMatrix[0][1]);
-    if (currentBest < 0 || currentBest < tmp) currentBest = tmp;
+    var tmp = best(0, arrMatrix[0][i]);
+    if (currentBest < 0 || currentBest > tmp) currentBest = tmp;
   }
-  console.log(currentBest)
+  console.log(currentBest+1)
 }
 
 
