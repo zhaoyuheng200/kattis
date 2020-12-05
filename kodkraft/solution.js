@@ -15,7 +15,6 @@ const rl = readline.createInterface({
 var n,m;
 var input = [];
 var arrMatrix = [];
-var retval;
 
 rl.on('line', (line) => {
   if (firstLine) {
@@ -39,9 +38,13 @@ var dict = {};
 var currentBest = -1;
 
 function best(num, position) {
+  if (dict[`${num}+${position}`]) {
+    return dict[`${num}+${position}`];
+  }
   if (num < m-1) {
     var nextNum = num+1;
     var nextPosition = -1;
+    var retval;
     if (position === n-1) {
       return arrMatrix[nextNum][0] + 1 + best(nextNum, arrMatrix[nextNum][0])
     }
@@ -55,10 +58,12 @@ function best(num, position) {
       nextPosition = arrMatrix[nextNum][0];
     }
     if (nextPosition > position) {
-      return nextPosition - position + best(nextNum, nextPosition);
+      retval = nextPosition - position + best(nextNum, nextPosition);
     } else {
-      return (n - 1)  - position + nextPosition + 1 + best(nextNum, nextPosition);
+      retval = n - position + nextPosition + best(nextNum, nextPosition);
     }
+    dict[`${num}+${position}`] = retval;
+    return retval;
   } else {
     return 0;
   }
