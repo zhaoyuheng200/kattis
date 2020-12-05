@@ -43,11 +43,21 @@ rl.on('line', (line) => {
 
 function main(input) {
   rec(input);
+  // rec2(input);
+}
+
+function rec2(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (compareStr(arr[i], arr[i+1]), k) {
+    
+    }
+  }
+  
 }
 
 function rec(arr) {
   if (arr.length === 2) {
-    
+
     return;
   }
   var base = arr[0];
@@ -56,7 +66,6 @@ function rec(arr) {
     if (compareStr(base, arr[i], k)) {
       candidate.push(base, arr[i]);
       base = arr[i+1];
-      i++;
     }
   }
   if (candidate.length === 0) {
