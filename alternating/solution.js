@@ -1,14 +1,33 @@
 const readline = require('readline');
 
+var firstLine = true;
+var input = [];
+var lineCount = 0;
+
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+  input: process.stdin,
+  output: process.stdout
 });
 
+/**
+ * local value
+ */
+var m
+var n
+
 rl.on('line', (line) => {
+  if (firstLine) {
     var nums = line.split(' ');
-    var a = parseInt(nums[0]);
-    var b = parseInt(nums[1]);
-    var res = Math.abs(a - b);
-    console.log(res);
+    n = parseInt(nums[0]);
+    m = parseInt(nums[1]);
+    firstLine = false;
+    return;
+  }
+  input.push(line.split(' '))
+  lineCount++;
+  if (lineCount < m) {
+    return;
+  }
+  console.log(input);
 });
+
